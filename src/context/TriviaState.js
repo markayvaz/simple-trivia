@@ -1,9 +1,9 @@
 import React from "react";
 
-const initialState = {
+export const initialTriviaState = {
   started: false,
-  questions: null,
+  questions: [],
   currentQuestion: null,
 };
 
-export const TriviaState = React.createContext(initialState);
+export const TriviaState = React.createContext(initialTriviaState);

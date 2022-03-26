@@ -1,9 +1,9 @@
 import React from "react";
 
-export const states = {
-  UNSTARTED: "UNSTARTED",
-  ONGOING: "ONGOING",
-  FINISHED: "FINISHED",
+const initialState = {
+  started: false,
+  questions: null,
+  currentQuestion: null,
 };
 
-export const TriviaState = React.createContext(states.UNSTARTED);
+export const TriviaState = React.createContext(initialState);

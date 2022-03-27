@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { initialTriviaState, TriviaState } from "../context/TriviaState";
+import { useTriviaState } from "../context/TriviaState";
 import PrimaryButton from "../components/elements/PrimaryButton";
 
 export default function Home() {
-  const { triviaState, setTriviaState } = useContext(TriviaState);
+  const { triviaState, resetTriviaState } = useTriviaState();
 
   return (
     <>
@@ -44,7 +43,7 @@ export default function Home() {
           {triviaState.started && (
             <span
               className="text-red-600 text-sm font-medium hover:cursor-pointer"
-              onClick={() => setTriviaState(initialTriviaState)}
+              onClick={() => resetTriviaState()}
             >
               Start over
             </span>

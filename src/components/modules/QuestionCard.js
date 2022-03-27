@@ -2,7 +2,7 @@ export default function QuestionCard({
   questionNo,
   category,
   question,
-  handleAnswer,
+  handleResponse,
 }) {
   return (
     <div>
@@ -18,7 +18,7 @@ export default function QuestionCard({
             type="button"
             className="text-white bg-gradient-to-r w-full from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg px-5 py-2.5 text-center mr-2 mb-2"
             onClick={() => {
-              handleAnswer(true);
+              handleResponse(true);
             }}
           >
             True
@@ -28,7 +28,7 @@ export default function QuestionCard({
             type="button"
             className="text-white bg-gradient-to-r w-full from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg px-5 py-2.5 text-center mr-2 mb-2"
             onClick={() => {
-              handleAnswer(false);
+              handleResponse(false);
             }}
           >
             False

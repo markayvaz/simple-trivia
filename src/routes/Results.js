@@ -1,6 +1,6 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { initialTriviaState, TriviaState } from "../context/TriviaState";
+import { useTriviaState } from "../context/TriviaState";
 import XCircle from "../components/elements/XCircle";
 import CheckCircle from "../components/elements/CheckCircle";
 import { convertBooleanToString } from "../utils/HelperFunctions";
@@ -11,7 +11,7 @@ export default function Results() {
 
   const [score, setScore] = useState(0);
 
-  const { triviaState, setTriviaState } = useContext(TriviaState);
+  const { triviaState, resetTriviaState } = useTriviaState();
 
   useEffect(() => {
     if (!triviaState.started) {
@@ -67,7 +67,7 @@ export default function Results() {
         <PrimaryButton
           title="Start over"
           onClick={() => {
-            setTriviaState(initialTriviaState);
+            resetTriviaState();
             navigate("/", { replace: true });
           }}
         />

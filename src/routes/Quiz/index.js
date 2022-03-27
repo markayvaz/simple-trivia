@@ -1,33 +1,23 @@
-import { TriviaState } from "../../context/TriviaState";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { getTrivia } from "../../api/OpenTableDB";
 import Spinner from "../../components/elements/Spinner";
+import { useTriviaState } from "../../context/TriviaState";
 
 export default function Quiz() {
-  const { triviaState, setTriviaState } = useContext(TriviaState);
+  const { triviaState, setTriviaQuestions, setTriviaError } = useTriviaState();
 
   let navigate = useNavigate();
 
-  console.log(triviaState);
-
   useEffect(() => {
     if (!triviaState.started) {
-      getTrivia(triviaState, setTriviaState);
+      getTrivia(setTriviaQuestions, setTriviaError);
     }
   }, []);
 
   useEffect(() => {
-    if (triviaState.questions.length > 0) {
-      let updatedTriviaState = triviaState;
-
-      updatedTriviaState.started = true;
-
-      setTriviaState(updatedTriviaState);
-
-      navigate(`${triviaState.currentQuestion}`);
-    }
-  }, [triviaState]);
+    navigate(`${triviaState.currentQuestion}`);
+  }, [triviaState.currentQuestion]);
 
   return (
     <div>
@@ -40,7 +30,7 @@ export default function Quiz() {
             <span
               className="font-medium text-blue-700 hover:cursor-pointer"
               onClick={() => {
-                getTrivia(triviaState, setTriviaState);
+                getTrivia(setTriviaQuestions, setTriviaError);
               }}
             >
               try again

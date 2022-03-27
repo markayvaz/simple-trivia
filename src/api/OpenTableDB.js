@@ -11,13 +11,20 @@ export async function getTrivia(triviaState, setTriviaState) {
       res
         .json()
         .then((data) => {
-          setTriviaState({ ...triviaState, questions: data.results });
+          setTriviaState({
+            ...triviaState,
+            questions: data.results,
+            currentQuestion: 1,
+            error: null,
+          });
         })
         .catch((err) => {
           console.log(err);
+          setTriviaState({ ...triviaState, error: err });
         });
     })
     .catch((err) => {
       console.error(err);
+      setTriviaState({ ...triviaState, error: err });
     });
 }

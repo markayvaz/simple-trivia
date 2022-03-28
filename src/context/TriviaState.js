@@ -46,12 +46,15 @@ export const TriviaStateProvider = ({ children }) => {
       setTriviaState({
         started: true,
         finished: isFinalQuestion ? true : false,
-        questions: [],
-        responses: [...prevState.responses].push({
-          question,
-          response,
-          isCorrect,
-        }),
+        questions: prevState.questions,
+        responses: [
+          ...prevState.responses,
+          {
+            question,
+            response,
+            isCorrect,
+          },
+        ],
         currentQuestion: isFinalQuestion ? null : prevState.currentQuestion + 1,
         error: null,
       });

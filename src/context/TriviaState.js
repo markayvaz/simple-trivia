@@ -4,8 +4,9 @@ export const initialTriviaState = {
   started: false,
   finished: false,
   questions: [],
-  responses: [],
   questionIndex: null,
+  currentQuestion: null,
+  responses: [],
   error: null,
 };
 
@@ -21,8 +22,9 @@ export const TriviaStateProvider = ({ children }) => {
         started: true,
         finished: false,
         questions,
-        responses: [],
         questionIndex: 0,
+        currentQuestion: questions[0],
+        responses: [],
         error: null,
       });
     },
@@ -31,8 +33,9 @@ export const TriviaStateProvider = ({ children }) => {
         started: false,
         finished: false,
         questions: [],
-        responses: [],
         questionIndex: null,
+        currentQuestion: null,
+        responses: [],
         error,
       });
     },
@@ -47,6 +50,8 @@ export const TriviaStateProvider = ({ children }) => {
         started: true,
         finished: isFinalQuestion ? true : false,
         questions: prevState.questions,
+        questionIndex: isFinalQuestion ? null : prevState.questionIndex + 1,
+        currentQuestion: isFinalQuestion ? null : prevState.questions[prevState.questionIndex + 1],
         responses: [
           ...prevState.responses,
           {
@@ -55,7 +60,6 @@ export const TriviaStateProvider = ({ children }) => {
             isCorrect,
           },
         ],
-        questionIndex: isFinalQuestion ? null : prevState.questionIndex + 1,
         error: null,
       });
     },

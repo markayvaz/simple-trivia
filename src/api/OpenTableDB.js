@@ -1,3 +1,5 @@
+import { decodeHtml } from "../utils/HelperFunctions";
+
 const URL =
   "https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean";
 
@@ -12,9 +14,8 @@ export async function getTrivia(setTriviaQuestions, setTriviaError) {
         .json()
         .then((data) => {
           const questions = data.results;
-          // TODO: Decode questions
           const decodedQuestions = questions.map((q) => {
-            return { ...q, question: q.question };
+            return { ...q, question: decodeHtml(q.question) };
           });
 
           setTriviaQuestions(decodedQuestions);

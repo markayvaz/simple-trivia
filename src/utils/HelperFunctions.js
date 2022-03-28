@@ -13,3 +13,11 @@ export function convertBooleanToString(boolean) {
     return "False";
   }
 }
+
+export function decodeHtml(html) {
+  let txt = document.createElement("textarea");
+  txt.innerHTML = html;
+  const decodedHtml = txt.value;
+  txt.remove();
+  return decodedHtml;
+}

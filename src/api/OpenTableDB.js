@@ -1,10 +1,7 @@
 const URL =
   "https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean";
 
-export async function getTrivia(
-  setTriviaQuestions,
-  setTriviaError
-) {
+export async function getTrivia(setTriviaQuestions, setTriviaError) {
   await fetch(URL)
     .then((res) => {
       if (!res.ok) {
@@ -14,7 +11,13 @@ export async function getTrivia(
       res
         .json()
         .then((data) => {
-          setTriviaQuestions(data.results);
+          const questions = data.results;
+          // TODO: Decode questions
+          const decodedQuestions = questions.map((q) => {
+            return { ...q, question: q.question };
+          });
+
+          setTriviaQuestions(decodedQuestions);
         })
         .catch((err) => {
           console.log(err);

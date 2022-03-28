@@ -4,12 +4,10 @@ import { TriviaStateProvider } from "./context/TriviaState";
 
 export default function App() {
   return (
-    <>
-      <TriviaStateProvider>
-        <DefaultLayout>
-          <Outlet />
-        </DefaultLayout>
-      </TriviaStateProvider>
-    </>
+    <TriviaStateProvider>
+      <DefaultLayout>
+        <Outlet />
+      </DefaultLayout>
+    </TriviaStateProvider>
   );
 }

@@ -6,7 +6,6 @@ import "flowbite";
 import App from "./App";
 import Home from "./routes/Home";
 import Quiz from "./routes/Quiz";
-import Question from "./routes/Quiz/Question";
 import Results from "./routes/Results";
 import NotFound from "./routes/NotFound";
 
@@ -16,9 +15,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
-          <Route path="/quiz" element={<Quiz />}>
-            <Route path=":questionNo" element={<Question />} />
-          </Route>
+          <Route path="/quiz" element={<Quiz />} />
           <Route path="/results" element={<Results />} />
           <Route path="*" element={<NotFound />} />
         </Route>

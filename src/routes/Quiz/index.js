@@ -12,12 +12,12 @@ export default function Quiz() {
   useEffect(() => {
     if (!triviaState.started) {
       getTrivia(setTriviaQuestions, setTriviaError);
+    } else if (triviaState.started && !triviaState.finished) {
+      navigate(`${triviaState.currentQuestion}`);
+    } else if (triviaState.finished) {
+      navigate(`/results`);
     }
-  }, []);
-
-  useEffect(() => {
-    navigate(`${triviaState.currentQuestion}`);
-  }, [triviaState.currentQuestion]);
+  }, [triviaState]);
 
   return (
     <div>
@@ -30,6 +30,7 @@ export default function Quiz() {
             <span
               className="font-medium text-blue-700 hover:cursor-pointer"
               onClick={() => {
+                // TODO: Implement loading on try again and disable button
                 getTrivia(setTriviaQuestions, setTriviaError);
               }}
             >

@@ -5,7 +5,7 @@ export const initialTriviaState = {
   finished: false,
   questions: [],
   responses: [],
-  currentQuestion: null,
+  questionIndex: null,
   error: null,
 };
 
@@ -22,7 +22,7 @@ export const TriviaStateProvider = ({ children }) => {
         finished: false,
         questions,
         responses: [],
-        currentQuestion: 1,
+        questionIndex: 0,
         error: null,
       });
     },
@@ -32,7 +32,7 @@ export const TriviaStateProvider = ({ children }) => {
         finished: false,
         questions: [],
         responses: [],
-        currentQuestion: null,
+        questionIndex: null,
         error,
       });
     },
@@ -55,7 +55,7 @@ export const TriviaStateProvider = ({ children }) => {
             isCorrect,
           },
         ],
-        currentQuestion: isFinalQuestion ? null : prevState.currentQuestion + 1,
+        questionIndex: isFinalQuestion ? null : prevState.questionIndex + 1,
         error: null,
       });
     },

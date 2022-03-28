@@ -13,12 +13,9 @@ export default function Results() {
 
   const { triviaState, resetTriviaState } = useTriviaState();
 
-  // TODO: If quiz is ongoing, navigate to /quiz
   useEffect(() => {
     if (!triviaState.started) {
       navigate("/");
-    } else if (triviaState.started && !triviaState.finished) {
-      navigate("/quiz");
     } else {
       const correctResponses = triviaState.responses.filter(
         (response) => response.isCorrect

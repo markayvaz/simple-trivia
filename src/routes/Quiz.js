@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getTrivia } from "../api/OpenTableDB";
 import Spinner from "../components/elements/Spinner";
@@ -12,8 +12,6 @@ export default function Quiz() {
 
   let navigate = useNavigate();
 
-  const [currentQuestion, setCurrentQuestion] = useState(null);
-
   useEffect(() => {
     if (!triviaState.started) {
       getTrivia(setTriviaQuestions, setTriviaError);
@@ -22,20 +20,17 @@ export default function Quiz() {
     }
   }, []);
 
-  useEffect(() => {
-    setCurrentQuestion(triviaState.questions[triviaState.questionIndex]);
-  }, [triviaState.questionIndex]);
-
   const relayResponse = (response) => {
     const isCorrect =
-      convertStringToBoolean(currentQuestion.correct_answer) === response;
+      convertStringToBoolean(triviaState.currentQuestion.correct_answer) ===
+      response;
 
     const isFinalQuestion =
       triviaState.questionIndex === triviaState.questions.length - 1;
 
     handleResponse(
       triviaState,
-      currentQuestion.question,
+      triviaState.currentQuestion.question,
       response,
       isCorrect,
       isFinalQuestion
@@ -71,11 +66,11 @@ export default function Quiz() {
           <Spinner />
         </div>
       ) : (
-        currentQuestion && (
+        triviaState.currentQuestion && (
           <QuestionCard
             questionNo={triviaState.questionIndex + 1}
-            category={currentQuestion.category}
-            question={currentQuestion.question}
+            category={triviaState.currentQuestion.category}
+            question={triviaState.currentQuestion.question}
             handleResponse={relayResponse}
           />
         )

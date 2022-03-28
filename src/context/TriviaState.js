@@ -51,7 +51,9 @@ export const TriviaStateProvider = ({ children }) => {
         finished: isFinalQuestion ? true : false,
         questions: prevState.questions,
         questionIndex: isFinalQuestion ? null : prevState.questionIndex + 1,
-        currentQuestion: isFinalQuestion ? null : prevState.questions[prevState.questionIndex + 1],
+        currentQuestion: isFinalQuestion
+          ? null
+          : prevState.questions[prevState.questionIndex + 1],
         responses: [
           ...prevState.responses,
           {

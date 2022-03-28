@@ -30,15 +30,11 @@ export default function Home() {
         )}
 
         <div>
-          {triviaState.started ? (
-            <Link to={`/quiz`}>
-              <PrimaryButton title="Continue..." />
-            </Link>
-          ) : (
-            <Link to="/quiz">
-              <PrimaryButton title="Begin" />
-            </Link>
-          )}
+          <Link to="/quiz">
+            <PrimaryButton
+              title={`${triviaState.started ? "Continue..." : "Begin"}`}
+            />
+          </Link>
 
           {triviaState.started && (
             <span

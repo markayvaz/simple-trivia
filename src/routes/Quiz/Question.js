@@ -11,19 +11,26 @@ export default function Question() {
 
   let params = useParams();
 
-  const questionNo = params.questionNo;
+  const questionNo = parseInt(params.questionNo, 10);
 
   const [question, setQuestion] = useState(null);
 
   useEffect(() => {
-    if (
-      !triviaState.started ||
+    enforceCorrectRoute();
+  });
+
+  const enforceCorrectRoute = () => {
+    if (!triviaState.started) {
+      navigate("/quiz");
+    } else if (
       questionNo < 1 ||
-      questionNo > triviaState.questions.length
+      questionNo > triviaState.questions.length ||
+      triviaState.responses[questionNo]
     ) {
-      navigate("/quiz", { replace: true });
+      // ? The question number is out of bounds or alredy answered.
+      navigate(`/quiz/${triviaState.currentQuestion}`);
     }
-  }, [triviaState.questions, questionNo]);
+  };
 
   useEffect(() => {
     setQuestion(triviaState.questions[questionNo - 1]);
@@ -44,13 +51,9 @@ export default function Question() {
       isFinalQuestion
     );
 
-    if (triviaState.currentQuestion === null) {
-      // ? The questions have finished, proceed to the results screen.
-      navigate("/results", { replace: true });
-    } else {
-      // ? Navigate to the next question.
-      navigate(`/quiz/${triviaState.currentQuestion}`);
-    }
+    isFinalQuestion
+      ? navigate("/results")
+      : navigate(`/quiz/${questionNo + 1}`, { replace: true });
   };
 
   return (

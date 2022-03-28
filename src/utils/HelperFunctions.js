@@ -1,7 +1,7 @@
 export function convertStringToBoolean(string) {
-  if (string === "True") {
+  if (string === "True" || string === "true") {
     return true;
-  } else if (string === "False") {
+  } else if (string === "False" || string === "false") {
     return false;
   }
 }

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getTrivia } from "../api/OpenTableDB";
 import Spinner from "../components/elements/Spinner";
@@ -12,8 +12,9 @@ export default function Quiz() {
 
   let navigate = useNavigate();
 
+  const [currentQuestion, setCurrentQuestion] = useState(null);
+
   useEffect(() => {
-    console.log("RAN");
     if (!triviaState.started) {
       getTrivia(setTriviaQuestions, setTriviaError);
     } else if (triviaState.finished) {
@@ -21,18 +22,20 @@ export default function Quiz() {
     }
   }, []);
 
+  useEffect(() => {
+    setCurrentQuestion(triviaState.questions[triviaState.questionIndex]);
+  }, [triviaState.questionIndex]);
+
   const relayResponse = (response) => {
     const isCorrect =
-      convertStringToBoolean(
-        triviaState.questions[triviaState.currentQuestion - 1].correct_answer
-      ) === response;
+      convertStringToBoolean(currentQuestion.correct_answer) === response;
 
     const isFinalQuestion =
-      triviaState.currentQuestion === triviaState.questions.length;
+      triviaState.questionIndex === triviaState.questions.length - 1;
 
     handleResponse(
       triviaState,
-      triviaState.questions[triviaState.currentQuestion - 1].question,
+      currentQuestion.question,
       response,
       isCorrect,
       isFinalQuestion
@@ -64,18 +67,18 @@ export default function Quiz() {
           </p>
         </div>
       ) : triviaState.questions.length === 0 ? (
-        <Spinner />
+        <div className="p-16">
+          <Spinner />
+        </div>
       ) : (
-        <QuestionCard
-          questionNo={triviaState.currentQuestion}
-          category={
-            triviaState.questions[triviaState.currentQuestion - 1].category
-          }
-          question={
-            triviaState.questions[triviaState.currentQuestion - 1].question
-          }
-          handleResponse={relayResponse}
-        />
+        currentQuestion && (
+          <QuestionCard
+            questionNo={triviaState.questionIndex + 1}
+            category={currentQuestion.category}
+            question={currentQuestion.question}
+            handleResponse={relayResponse}
+          />
+        )
       )}
     </div>
   );

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTriviaState } from "../context/TriviaState";
 import PrimaryButton from "../components/elements/PrimaryButton";
+import { NUMBER_OF_QUESTIONS } from "../api/OpenTableDB";
 
 export default function Home() {
   const { triviaState, resetTriviaState } = useTriviaState();
@@ -21,7 +22,10 @@ export default function Home() {
           triviaState.questions.length - triviaState.responses.length
         } questions to go...`}</h3>
       ) : (
-        <h3>You'll be presented with 10 True or False questions.</h3>
+        <h3>
+          You'll be presented with {NUMBER_OF_QUESTIONS} True or False
+          questions.
+        </h3>
       )}
 
       <div className="flex flex-col text-center space-y-4">

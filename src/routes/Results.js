@@ -53,7 +53,7 @@ export default function Results() {
       <h1>🎉</h1>
       <h3>Score: {`${score}/${triviaState.questions.length}`}</h3>
 
-      <div className="flex flex-col text-gray-900 bg-white border border-gray-200 rounded-lg">
+      <div className="flex flex-col text-gray-900 bg-white border border-gray-200 rounded-lg max-h-[50vh] overflow-auto">
         {renderResponses()}
       </div>
 

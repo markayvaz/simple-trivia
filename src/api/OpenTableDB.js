@@ -1,7 +1,14 @@
 import { decodeHtml } from "../utils/HelperFunctions";
 
-const URL =
-  "https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean";
+export const NUMBER_OF_QUESTIONS = 15;
+
+const DIFFICULTY = {
+  easy: "easy",
+  medium: "medium",
+  hard: "hard",
+};
+
+const URL = `https://opentdb.com/api.php?amount=${NUMBER_OF_QUESTIONS}&difficulty=${DIFFICULTY.hard}&type=boolean`;
 
 export async function getTrivia(setTriviaQuestions, setTriviaError) {
   await fetch(URL)

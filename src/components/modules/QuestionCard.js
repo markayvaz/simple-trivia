@@ -1,5 +1,6 @@
 export default function QuestionCard({
   questionNo,
+  totalQuestionCount,
   category,
   question,
   handleResponse,
@@ -8,7 +9,7 @@ export default function QuestionCard({
     <div>
       <div className="space-y-10">
         <div className="space-y-2">
-          <span className="text-slate-600 text-sm">{`${questionNo}/10`}</span>
+          <span className="text-slate-600 text-sm">{`${questionNo}/${totalQuestionCount}`}</span>
           <h3>{category}</h3>
         </div>
 

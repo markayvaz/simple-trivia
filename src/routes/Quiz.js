@@ -69,6 +69,7 @@ export default function Quiz() {
         triviaState.currentQuestion && (
           <QuestionCard
             questionNo={triviaState.questionIndex + 1}
+            totalQuestionCount={triviaState.questions.length}
             category={triviaState.currentQuestion.category}
             question={triviaState.currentQuestion.question}
             handleResponse={relayResponse}

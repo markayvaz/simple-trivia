@@ -1,10 +1,18 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getTrivia } from "../api/OpenTableDB";
+import { fetchTrivia } from "../api/OpenTableDB";
 import Spinner from "../components/elements/Spinner";
 import QuestionCard from "../components/modules/QuestionCard";
 import { useTriviaState } from "../context/TriviaState";
 import { convertStringToBoolean } from "../utils/HelperFunctions";
+
+export const NUMBER_OF_QUESTIONS = 10;
+
+const params = {
+  amount: NUMBER_OF_QUESTIONS,
+  difficulty: "hard",
+  type: "boolean",
+};
 
 export default function Quiz() {
   const { triviaState, setTriviaQuestions, setTriviaError, handleResponse } =
@@ -14,7 +22,7 @@ export default function Quiz() {
 
   useEffect(() => {
     if (!triviaState.started) {
-      getTrivia(setTriviaQuestions, setTriviaError);
+      fetchTrivia(params, setTriviaQuestions, setTriviaError);
     } else if (triviaState.finished) {
       navigate(`/results`);
     }
@@ -53,7 +61,7 @@ export default function Quiz() {
               className="font-medium text-blue-700 hover:cursor-pointer"
               onClick={() => {
                 // TODO: Implement loading on try again and disable button
-                getTrivia(setTriviaQuestions, setTriviaError);
+                fetchTrivia(params, setTriviaQuestions, setTriviaError);
               }}
             >
               try again

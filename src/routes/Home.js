@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTriviaState } from "../context/TriviaState";
 import PrimaryButton from "../components/elements/PrimaryButton";
-import { NUMBER_OF_QUESTIONS } from "../api/OpenTableDB";
+import { NUMBER_OF_QUESTIONS } from "./Quiz";
 
 export default function Home() {
   const { triviaState, resetTriviaState } = useTriviaState();

@@ -1,19 +1,13 @@
 import { decodeHtml } from "../utils/HelperFunctions";
 
-export const NUMBER_OF_QUESTIONS = 10;
+const TRIVIA_BASE = process.env.REACT_APP_TRIVIA_BASE;
 
-const DIFFICULTY = {
-  easy: "easy",
-  medium: "medium",
-  hard: "hard",
-};
+const url = new URL(TRIVIA_BASE);
 
-const URL = `https://opentdb.com/api.php?amount=${NUMBER_OF_QUESTIONS}&difficulty=${DIFFICULTY.hard}&type=boolean`;
+export async function fetchTrivia(params, setTriviaQuestions, setTriviaError) {
+  url.search = new URLSearchParams(params).toString();
 
-// TODO: Ensure errors are handled properly
-
-export async function getTrivia(setTriviaQuestions, setTriviaError) {
-  await fetch(URL)
+  await fetch(url)
     .then((res) => {
       if (!res.ok) {
         return Promise.reject(res.status);
@@ -30,12 +24,12 @@ export async function getTrivia(setTriviaQuestions, setTriviaError) {
           setTriviaQuestions(decodedQuestions);
         })
         .catch((err) => {
-          console.log(err);
           setTriviaError(err);
+          throw new Error("unable to fetch trivia.");
         });
     })
     .catch((err) => {
-      console.error(err);
       setTriviaError(err);
+      throw new Error("unable to fetch trivia.");
     });
 }

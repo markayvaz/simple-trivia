@@ -10,6 +10,8 @@ const DIFFICULTY = {
 
 const URL = `https://opentdb.com/api.php?amount=${NUMBER_OF_QUESTIONS}&difficulty=${DIFFICULTY.hard}&type=boolean`;
 
+// TODO: Ensure errors are handled properly
+
 export async function getTrivia(setTriviaQuestions, setTriviaError) {
   await fetch(URL)
     .then((res) => {

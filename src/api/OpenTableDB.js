@@ -4,32 +4,28 @@ const TRIVIA_BASE = process.env.REACT_APP_TRIVIA_BASE;
 
 const url = new URL(TRIVIA_BASE);
 
-export async function fetchTrivia(params, setTriviaQuestions, setTriviaError) {
+export async function fetchTrivia(params) {
   url.search = new URLSearchParams(params).toString();
 
-  await fetch(url)
+  return await fetch(url)
     .then((res) => {
       if (!res.ok) {
         return Promise.reject(res.status);
       }
 
-      res
+      return res
         .json()
         .then((data) => {
-          const questions = data.results;
-          const decodedQuestions = questions.map((q) => {
+          return data.results.map((q) => {
+            // TODO: Create new object with own properties e.g, id, correctAnswer, etc.
             return { ...q, question: decodeHtml(q.question) };
           });
-
-          setTriviaQuestions(decodedQuestions);
         })
         .catch((err) => {
-          setTriviaError(err);
           throw new Error("unable to fetch trivia.");
         });
     })
     .catch((err) => {
-      setTriviaError(err);
       throw new Error("unable to fetch trivia.");
     });
 }

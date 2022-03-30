@@ -7,7 +7,6 @@ export const initialTriviaState = {
   questionIndex: null,
   currentQuestion: null,
   responses: [],
-  error: null,
 };
 
 export const TriviaState = createContext(initialTriviaState);
@@ -25,20 +24,9 @@ export const TriviaStateProvider = ({ children }) => {
         questionIndex: 0,
         currentQuestion: questions[0],
         responses: [],
-        error: null,
       });
     },
-    setTriviaError: (error) => {
-      setTriviaState({
-        started: false,
-        finished: false,
-        questions: [],
-        questionIndex: null,
-        currentQuestion: null,
-        responses: [],
-        error,
-      });
-    },
+
     handleResponse: (
       prevState,
       question,
@@ -62,7 +50,6 @@ export const TriviaStateProvider = ({ children }) => {
             isCorrect,
           },
         ],
-        error: null,
       });
     },
     resetTriviaState: () => {

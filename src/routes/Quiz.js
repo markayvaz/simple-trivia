@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchTrivia } from "../api/OpenTableDB";
 import Spinner from "../components/elements/Spinner";
@@ -15,14 +15,29 @@ const params = {
 };
 
 export default function Quiz() {
-  const { triviaState, setTriviaQuestions, setTriviaError, handleResponse } =
-    useTriviaState();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const { triviaState, setTriviaQuestions, handleResponse } = useTriviaState();
 
   let navigate = useNavigate();
 
+  const getTrivia = async () => {
+    try {
+      setLoading(true);
+      const questions = await fetchTrivia(params);
+      setTriviaQuestions(questions);
+      setError(false);
+    } catch (err) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (!triviaState.started) {
-      fetchTrivia(params, setTriviaQuestions, setTriviaError);
+      getTrivia();
     } else if (triviaState.finished) {
       navigate(`/results`);
     }
@@ -51,7 +66,7 @@ export default function Quiz() {
 
   return (
     <div>
-      {triviaState.error ? (
+      {error ? (
         <div className="space-y-4">
           <h3>Oops, there was an error in getting the quiz...</h3>
 
@@ -60,8 +75,7 @@ export default function Quiz() {
             <span
               className="font-medium text-blue-700 hover:cursor-pointer"
               onClick={() => {
-                // TODO: Implement loading on try again and disable button
-                fetchTrivia(params, setTriviaQuestions, setTriviaError);
+                getTrivia();
               }}
             >
               try again
@@ -69,7 +83,7 @@ export default function Quiz() {
             .
           </p>
         </div>
-      ) : triviaState.questions.length === 0 ? (
+      ) : loading ? (
         <div className="p-16">
           <Spinner />
         </div>

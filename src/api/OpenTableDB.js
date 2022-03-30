@@ -1,6 +1,6 @@
 import { decodeHtml } from "../utils/HelperFunctions";
 
-export const NUMBER_OF_QUESTIONS = 15;
+export const NUMBER_OF_QUESTIONS = 10;
 
 const DIFFICULTY = {
   easy: "easy",

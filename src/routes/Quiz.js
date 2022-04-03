@@ -45,7 +45,7 @@ export default function Quiz() {
 
   const relayResponse = (response) => {
     const isCorrect =
-      convertStringToBoolean(triviaState.currentQuestion.correct_answer) ===
+      convertStringToBoolean(triviaState.currentQuestion.correctAnswer) ===
       response;
 
     const isFinalQuestion =

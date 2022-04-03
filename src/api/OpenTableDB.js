@@ -1,8 +1,6 @@
 import { decodeHtml } from "../utils/HelperFunctions";
 
-const TRIVIA_BASE = process.env.REACT_APP_TRIVIA_BASE;
-
-const url = new URL(TRIVIA_BASE);
+const url = new URL(process.env.REACT_APP_TRIVIA_BASE);
 
 export async function fetchTrivia(params) {
   url.search = new URLSearchParams(params).toString();
@@ -16,9 +14,13 @@ export async function fetchTrivia(params) {
       return res
         .json()
         .then((data) => {
-          return data.results.map((q) => {
-            // TODO: Create new object with own properties e.g, id, correctAnswer, etc.
-            return { ...q, question: decodeHtml(q.question) };
+          return data.results.map((q, i) => {
+            return {
+              id: i,
+              category: q.category,
+              question: decodeHtml(q.question),
+              correctAnswer: q.correct_answer,
+            };
           });
         })
         .catch((err) => {

@@ -1,5 +1,3 @@
-// TODO: Convert this component to .svg
-
 export default function Spinner() {
   return (
     <svg

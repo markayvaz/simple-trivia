@@ -11,7 +11,7 @@ export default function Home() {
       <div className="space-y-6">
         <h1>🎉</h1>
         {triviaState.started ? (
-          <h1>Hey, welcome back!</h1>
+          <h1>Heyuu, welcome back!</h1>
         ) : (
           <h1>Welcome to the Trivia Challenge!</h1>
         )}

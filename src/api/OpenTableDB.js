@@ -1,6 +1,6 @@
 import { decodeHtml } from "../utils/HelperFunctions";
 
-const url = new URL(process.env.REACT_APP_TRIVIA_BASE);
+const url = new URL("https://opentdb.com/api.php");
 
 export async function fetchTrivia(params) {
   url.search = new URLSearchParams(params).toString();

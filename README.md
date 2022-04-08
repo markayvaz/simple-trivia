@@ -1,2 +1,2 @@
 # Trivia Challenge
-Demo: [https://markayvaz.github.io/trivia-challenge](https://markayvaz.github.io/trivia-challenge)
+View demo: [https://markayvaz-trivia-challenge.netlify.app/](https://markayvaz-trivia-challenge.netlify.app/)
